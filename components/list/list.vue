@@ -1,7 +1,7 @@
 <template>
 <swiper class="list_swiper"  @change="change" :current="tabCurrentIndex">
 	<swiper-item class="swiper_box" v-for="(item, index) in listlength" :key="index">
-	   <list-item :articleLists = "listCatchData[index]"></list-item>
+	   <list-item :articleLists = "listCatchData[index]" :load="load[index]" @loadmore="loadmore"></list-item>
 	</swiper-item>		
 </swiper>
 </template>
@@ -27,7 +27,7 @@
 		},
 		watch: {
 			tab (newVal) {
-			  console.log(newVal,"ccc")
+			  //console.log(newVal,"ccc")
 			  if(newVal.length === 0) return 
 			  this.getLists(this.tabCurrentIndex)
 			}
@@ -38,13 +38,23 @@
 		data() {
 			return {
 				articleLists: [],
-				listCatchData:{}
+				listCatchData:{},
+				load:{},
+				pageSize: 5
 			};
 		},
 		components:{
 			listItem
 		},
 		methods:{
+			loadmore () {
+				console.log("触发上拉")
+				console.log(this.tabCurrentIndex,"nnn")
+				if(this.load[this.tabCurrentIndex].loading === "noMore") return 
+				this.load[this.tabCurrentIndex].page ++
+				this.getLists(this.tabCurrentIndex)
+				
+			},
 			change(e){				
 				const {
 					current
@@ -61,16 +71,38 @@
 			},
 			//获取文章列表
 			getLists(current) {
-				//console.log(this.tab,"///")
+				//page 初始化
+				if(!this.load[current]) {
+					this.load[current] = {
+						page: 1,
+						loading: "loading"
+					}
+				}
+				
 				this.$api.get_list({
 					classify: this.tab[current].name,
-					page: 1,
-					pageSize: 5
+					page: this.load[current].page,
+					pageSize:this.pageSize
 				}).then((res)=>{
 					console.log(res, "文章列表")
 					const { data } = res
+					//console.log(this.listCatchData, current, "ggfddhhjj")
+					if(data.length===0) {
+						let oldLoad = {}
+						oldLoad.loading = "noMore"
+						oldLoad.page = this.load[current].page
+						this.$set(this.load, current, oldLoad)
+						this.$forceUpdate()
+						return 
+					}
+					
+					console.log(this.load,"xxxxxxxxxx")
+					
+					let oldCatchdata = this.listCatchData[current] || []
+					oldCatchdata.push(...data)
+										
 					//this.listCatchData[current] = data
-					this.$set(this.listCatchData, current, data)
+					this.$set(this.listCatchData, current, oldCatchdata)
 				})
 			}
 		}

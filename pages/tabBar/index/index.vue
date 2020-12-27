@@ -37,6 +37,7 @@
 			change (current) {
 				//console.log('当前swiper的值：',current);
 				this.swiperIndex = current
+				this.tabCurrentIndex  = current
 			},
             getLabel() {
 			    var _that = this
@@ -44,7 +45,7 @@
 				   //console.log(res,"获取的数据")
 				   const { data } = res				   
 				   _that.tablist = data.data
-				   console.log(_that.tablist,"hhxxxas")
+				   //console.log(_that.tablist,"hhxxxas")
 				   _that.tablist.unshift({
 					   name: "全部"
 				   })
