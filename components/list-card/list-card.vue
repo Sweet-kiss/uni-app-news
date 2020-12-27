@@ -7,7 +7,8 @@
 			</view>
 			<view class="list_card_content">
 				<view class="list_card_text">
-					<text>{{item.title}}</text>
+					<text class="text_title">{{item.title}}</text>
+					<likeIcon :item="item"></likeIcon>
 				</view>
 				<view class="list_card_classifyaddsee">
 					<view class="list_card_classify">{{item.classify}}</view>
@@ -21,6 +22,7 @@
 			<view class="list_card_content">
 				<view class="list_card_text">
 					<text>{{item.title}}</text>
+					<likeIcon :item="item"></likeIcon>
 				</view>
 				<view class="list_card_image_box">
 					<view v-if="index < 3" class="list_card_image_lists" v-for="(item, index) in item.cover">
@@ -39,6 +41,7 @@
 			<view class="list_card_content">
 				<view class="list_card_text">
 					<text>{{item.title}}</text>
+					<likeIcon :item="item"></likeIcon>
 				</view>
 				<view class="list_card_image_box">
 					<view class="list_card_image_lists">
@@ -99,11 +102,12 @@ page {
 		}
 	}
 	.list_card_content {
+		position: relative;
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		.list_card_text {
-			width: 100%;
+			width: 85%;
 			overflow: hidden;
 			font-size: 14px;
 			text-overflow: ellipsis;
@@ -111,17 +115,12 @@ page {
 			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			margin-bottom: 5px;
+			.like_icons {
+				position: absolute;
+				right: 5px;
+				top:0;
+			}
 	    }
-		.list_card_text {
-			width: 100%;
-			overflow: hidden;
-			font-size: 14px;
-			text-overflow: ellipsis;
-			display: -webkit-box;
-			-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;
-			margin-bottom: 5px;
-		}
 		.list_card_classifyaddsee {
 			display: flex;
 			align-items: center;
@@ -144,7 +143,9 @@ page {
 	&.mode_column {
 		width: 100%;
 		.list_card_content {
+			position: relative;
 			.list_card_text {
+				position: relative;
 				width: 100%;
 				overflow: hidden;
 				font-size: 16px;
@@ -153,6 +154,11 @@ page {
 				-webkit-line-clamp: 1;
 				-webkit-box-orient: vertical;
 				margin-bottom: 5px;
+				.like_icons {
+					position: absolute;
+					right: 5px;
+					top:0;
+				}
 			}
 			.list_card_image_box {
 				padding: 5px 0;
@@ -169,8 +175,10 @@ page {
 	&.mode_large {
 		width: 100%;
 		.list_card_content {
+			position: relative;
 			.list_card_text {
-				width: 100%;
+				width: 85%;
+				padding-right: 20px;
 				overflow: hidden;
 				font-size: 16px;
 				text-overflow: ellipsis;
@@ -178,6 +186,11 @@ page {
 				-webkit-line-clamp: 1;
 				-webkit-box-orient: vertical;
 				margin-bottom: 5px;
+				.like_icons {
+					position: absolute;
+					right: 5px;
+					top:0;
+				}
 			}
 			.list_card_image_box {
 				width: 100%;
