@@ -21,18 +21,17 @@
 		},
 		watch: {
 			item (newVal) {
-			   conaole.log(newVal,"jjjddgddgdgg")
+			   //console.log(newVal,"jjjddgddgdgg")
 			   this.isLike = newVal.is_like
 			}
 		},
 		created () {				
-			console.log(this.item, "kkkkkk")
+			//console.log(this.item, "kkkkkk")
 			this.isLike = this.item.is_like
 		},
 		methods: {
 			Collection () {
 				this.isLike = !this.isLike
-				console.log("收藏成功")
 				this.updateLiskes ()
 			},
 			updateLiskes () {

@@ -21,10 +21,17 @@
 			return {
 				tablist: [],
 				swiperIndex: 0,
+				//当前tab 的值
 				tabCurrentIndex: 0
 			}
 		},
 		onLoad() {
+		  uni.$on('updatemyLabel', (res)=>{
+			  console.log("我知道了")
+			  this.tabCurrentIndex = 0
+			  this.swiperIndex = 0
+			  this.getLabel()
+		  })
           this.getLabel()
 		},
 		methods: {
@@ -42,13 +49,18 @@
             getLabel() {
 			    var _that = this
 			    this.$api.get_label().then((res)=>{
-				   //console.log(res,"获取的数据")
-				   const { data } = res				   
-				   _that.tablist = data.data
-				   //console.log(_that.tablist,"hhxxxas")
-				   _that.tablist.unshift({
+				   console.log(res,"获取的数据")
+				   const { data } = res	
+				  let oldData = []
+				    data.forEach(item=> {
+						if(item.current===true) {
+							oldData.push(item)
+						}
+					})
+				   oldData.unshift({
 					   name: "全部"
 				   })
+				   this.tablist = oldData
 			    })
 		    }
 		}
@@ -62,6 +74,7 @@ page {
 }
 .home {
 	display: flex;
+	width: 100%;
 	flex-direction: column;
 	.list {
 		flex: 1;

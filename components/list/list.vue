@@ -96,7 +96,7 @@
 						return 
 					}
 					
-					console.log(this.load,"xxxxxxxxxx")
+					//console.log(this.load,"xxxxxxxxxx")
 					
 					let oldCatchdata = this.listCatchData[current] || []
 					oldCatchdata.push(...data)

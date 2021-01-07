@@ -12,7 +12,7 @@
 				</view>
 			</view>	
 		</scroll-view>
-		<view class="tab_setUp_icon_box">
+		<view class="tab_setUp_icon_box" @click="open_label">
 			<uni-icons type="gear" size="25" color="#666"></uni-icons>
 		</view>
 	</view>
@@ -50,6 +50,11 @@
 			
 		},
 		methods:{
+			open_label () {
+				uni.navigateTo({
+					url: "/pages/home-label/home-label"
+				})
+			},
 			clickTab(index){
 				//console.log(index, "当前tabIndex")
 				this.currentIndex = index
@@ -68,6 +73,7 @@
 	background-color: #fff;
 	.tab_scroll {
 		flex: 1;
+		width: 100%;
 	    overflow: hidden;
 		box-sizing: border-box;
 		.tab_scroll_box {
